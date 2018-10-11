@@ -12,4 +12,4 @@ WORKDIR /appTopics
 COPY . /appTopics
 RUN pip install -r /appTopics/requirements.txt
 
-EXPOSE 8000
+EXPOSE 8080
