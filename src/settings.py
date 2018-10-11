@@ -76,11 +76,20 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432
+        'ENGINE': 'djongo',
+        'ENFORCE_SCHEMA': True,
+        'NAME': 'test',
+        'HOST': 'mongo5',
+        'PORT': 27017,
+        # 'USER': 'db-username',
+        # 'PASSWORD': 'password',
+        # 'AUTH_SOURCE': 'db-name',
+        # 'AUTH_MECHANISM': 'SCRAM-SHA-1',
+        # 'REPLICASET': 'replicaset',
+        # 'SSL': 'ssl',
+        # 'SSL_CERTFILE': 'ssl_certfile',
+        # 'SSL_CA_CERTS': 'ssl_ca_certs',
+        # 'READ_PREFERENCE': 'read_preference'
     }
 }
 
