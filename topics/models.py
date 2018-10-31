@@ -8,11 +8,8 @@ class Topic(models.Model):
     def __str__(self):
         return self.title
 
-    # def add_post(self, post_id):
-    #     self.post_ids_set.create(post_id = post_id)
-
 class PostId(models.Model):
-    post_id = models.IntegerField()
+    post_id = models.IntegerField(unique=True, primary_key=True)
     topic = models.ForeignKey(Topic,
                               on_delete=models.CASCADE,
                               related_name='post_ids'
