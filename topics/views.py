@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Topic
-from .serializers import TopicSerializer
+from .models import Topic, PostId
+from .serializers import TopicSerializer, PostIdSerializer
 from django.shortcuts import get_object_or_404
 # from rest_framework.views import APIView
 # from rest_framework.response import Response
@@ -10,17 +10,12 @@ class TopicViewSet(viewsets.ModelViewSet):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
 
-# class UserViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows users to be viewed or edited.
-#     """
-#     queryset = User.objects.all().order_by('-date_joined')
-#     serializer_class = UserSerializer
-#
-#
-# class GroupViewSet(viewsets.ModelViewSet):
-#     """
-#     API endpoint that allows groups to be viewed or edited.
-#     """
-#     queryset = Group.objects.all()
-#     serializer_class = GroupSerializer
+class PostIdViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows post ids to be viewed.
+    """
+    queryset = PostId.objects.all()
+    serializer_class = PostIdSerializer
+
+    def get_queryset(self):
+        return PostId.objects.filter(topic=self.kwargs['topic'])
