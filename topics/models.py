@@ -19,3 +19,13 @@ class PostId(models.Model):
 
     def __str__(self):
         return self.post_id
+
+class Subscriber(models.Model):
+    user_id = models.IntegerField(unique=True, primary_key=True)
+    topic = models.ForeignKey(Topic,
+                              on_delete=models.CASCADE,
+                              related_name='subscribers'
+                              )
+
+    def __str__(self):
+        return self.user_id

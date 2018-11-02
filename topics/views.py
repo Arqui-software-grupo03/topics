@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Topic, PostId
-from .serializers import TopicSerializer, PostIdSerializer
+from .models import Topic, PostId, Subscriber
+from .serializers import TopicSerializer, PostIdSerializer, SubscriberSerializer
 from django.shortcuts import get_object_or_404
 # from rest_framework.views import APIView
 # from rest_framework.response import Response
@@ -19,3 +19,13 @@ class PostIdViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return PostId.objects.filter(topic=self.kwargs['topic'])
+
+class SubscriberViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows post ids to be viewed.
+    """
+    queryset = Subscriber.objects.all()
+    serializer_class = SubscriberSerializer
+
+    def get_queryset(self):
+        return Subscriber.objects.filter(topic=self.kwargs['topic'])
