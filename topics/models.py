@@ -22,7 +22,9 @@ class PostId(models.Model):
 
 class Subscriber(models.Model):
     user_id = models.IntegerField(unique=True, primary_key=True)
+    topic_identifier = models.IntegerField(null=False)
     topic = models.ForeignKey(Topic,
+                              null=True,
                               on_delete=models.CASCADE,
                               related_name='subscribers'
                               )
