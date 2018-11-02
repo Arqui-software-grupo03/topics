@@ -4,11 +4,12 @@ from .models import Topic, PostId
 class PostIdSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PostId
-        fields = ['post_id', 'topic']
+        fields = ['post_id', 'topic_identifier', 'topic']
 
     def create(self, validated_data):
         post_id = PostId.objects.create(post_id=validated_data['post_id'],
-                                        topic=validated_data['topic'])
+                                        topic_identifier=validated_data['topic_identifier'],
+                                        topic = Topic.objects.get(id = validated_data['topic_identifier']))
         return post_id
 
 class TopicSerializer(serializers.HyperlinkedModelSerializer):

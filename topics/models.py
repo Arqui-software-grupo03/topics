@@ -10,7 +10,9 @@ class Topic(models.Model):
 
 class PostId(models.Model):
     post_id = models.IntegerField(unique=True, primary_key=True)
+    topic_identifier = models.IntegerField(null=False)
     topic = models.ForeignKey(Topic,
+                              null=True,
                               on_delete=models.CASCADE,
                               related_name='post_ids'
                               )
