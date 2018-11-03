@@ -1,14 +1,32 @@
-from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from .models import Topic, PostId, Subscriber
 
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class PostIdSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'groups')
+        model = PostId
+        fields = ['post_id', 'topic_identifier', 'topic']
 
+    def create(self, validated_data):
+        post_id = PostId.objects.create(post_id=validated_data['post_id'],
+                                        topic_identifier=validated_data['topic_identifier'],
+                                        topic = Topic.objects.get(id = validated_data['topic_identifier']))
+        return post_id
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Group
-        fields = ('url', 'name')
+        model = Subscriber
+        fields = ['user_id', 'topic_identifier', 'topic']
+
+    def create(self, validated_data):
+        subscriber = Subscriber.objects.create(user_id=validated_data['user_id'],
+                                               topic_identifier=validated_data['topic_identifier'],
+                                               topic = Topic.objects.get(id = validated_data['topic_identifier']))
+        return subscriber
+
+class TopicSerializer(serializers.HyperlinkedModelSerializer):
+    post_ids = PostIdSerializer(required=False, many = True)
+    subscribers = SubscriberSerializer(required=False, many=True)
+
+    class Meta:
+        model = Topic
+        fields = ['id', 'title', 'description', 'post_ids', 'subscribers']

@@ -11,6 +11,6 @@
 - `cd topics`
 - `docker-compose build` && `docker-compose up`
 - `docker exec -it appTopics ./manage.py migrate`
-- `docker exec -it appTopics python ./manage.py runserver 0.0.0.0:8080`
+- `docker exec -it appTopics python ./manage.py runserver 0.0.0.0:8001`
 - try it:
         http://localhost:8080/admin
