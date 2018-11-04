@@ -6,7 +6,7 @@ services:
     restart: always
     build: .
     ports:
-      - "8001:8001"
+      - "8080:8080"
     tty: true
 networks:
   default:
