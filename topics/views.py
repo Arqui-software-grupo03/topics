@@ -17,8 +17,8 @@ class PostIdViewSet(viewsets.ModelViewSet):
     queryset = PostId.objects.all()
     serializer_class = PostIdSerializer
 
-    def get_queryset(self):
-        return PostId.objects.filter(topic=self.kwargs['topic'])
+    # def get_queryset(self):
+    #     return PostId.objects.filter(topic=self.kwargs['topic'])
 
 class SubscriberViewSet(viewsets.ModelViewSet):
     """
@@ -27,5 +27,5 @@ class SubscriberViewSet(viewsets.ModelViewSet):
     queryset = Subscriber.objects.all()
     serializer_class = SubscriberSerializer
 
-    def get_queryset(self):
-        return Subscriber.objects.filter(topic=self.kwargs['topic'])
+    # def get_queryset(self):
+    #     return Subscriber.objects.filter(topic=self.kwargs['topic'])
