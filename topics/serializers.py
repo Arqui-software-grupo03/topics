@@ -9,7 +9,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         post = Post.objects.create(post_id=validated_data['post_id'],
                                         topic_identifier=validated_data['topic_identifier'],
-                                        topic = Topic.objects.get(id = validated_data['topic_identifier']))
+                                        topic = Topic.objects.get(topic_id = validated_data['topic_identifier']))
         return post
 
 class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
@@ -20,7 +20,7 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         subscriber = Subscriber.objects.create(user_id=validated_data['user_id'],
                                                topic_identifier=validated_data['topic_identifier'],
-                                               topic = Topic.objects.get(id = validated_data['topic_identifier']))
+                                               topic = Topic.objects.get(topic_id = validated_data['topic_identifier']))
         return subscriber
 
 class TopicSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,4 +29,4 @@ class TopicSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Topic
-        fields = ['id', 'title', 'description', 'posts', 'subscribers']
+        fields = ['topic_id', 'title', 'description', 'posts', 'subscribers']
