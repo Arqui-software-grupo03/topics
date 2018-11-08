@@ -8,13 +8,13 @@ class Topic(models.Model):
     def __str__(self):
         return self.title
 
-class PostId(models.Model):
+class Post(models.Model):
     post_id = models.IntegerField(unique=True, primary_key=True)
     topic_identifier = models.IntegerField(null=False)
     topic = models.ForeignKey(Topic,
                               null=True,
                               on_delete=models.CASCADE,
-                              related_name='post_ids'
+                              related_name='posts'
                               )
 
     def __str__(self):
