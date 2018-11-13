@@ -1,16 +1,16 @@
 from rest_framework import serializers
-from .models import Topic, PostId, Subscriber
+from .models import Topic, Post, Subscriber
 
-class PostIdSerializer(serializers.HyperlinkedModelSerializer):
+class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = PostId
-        fields = ['post_id', 'topic_identifier', 'topic']
+        model = Post
+        fields = ['post_id', 'topic_identifier']
 
     def create(self, validated_data):
-        post_id = PostId.objects.create(post_id=validated_data['post_id'],
+        post = Post.objects.create(post_id=validated_data['post_id'],
                                         topic_identifier=validated_data['topic_identifier'],
-                                        topic = Topic.objects.get(id = validated_data['topic_identifier']))
-        return post_id
+                                        topic = Topic.objects.get(topic_id = validated_data['topic_identifier']))
+        return post
 
 class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -20,13 +20,13 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         subscriber = Subscriber.objects.create(user_id=validated_data['user_id'],
                                                topic_identifier=validated_data['topic_identifier'],
-                                               topic = Topic.objects.get(id = validated_data['topic_identifier']))
+                                               topic = Topic.objects.get(topic_id = validated_data['topic_identifier']))
         return subscriber
 
 class TopicSerializer(serializers.HyperlinkedModelSerializer):
-    post_ids = PostIdSerializer(required=False, many = True)
+    posts = PostSerializer(required=False, many = True)
     subscribers = SubscriberSerializer(required=False, many=True)
 
     class Meta:
         model = Topic
-        fields = ['id', 'title', 'description', 'post_ids', 'subscribers']
+        fields = ['topic_id', 'title', 'description', 'posts', 'subscribers']
