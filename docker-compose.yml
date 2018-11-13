@@ -2,11 +2,11 @@ version: "3.5"
 services:
   app:
     container_name: appTopics
-    command: bash -c "python ./manage.py makemigrations topics && python ./manage.py migrate && python ./manage.py runserver 0.0.0.0:8081"
+    command: bash -c "python ./manage.py makemigrations topics && python ./manage.py migrate && python ./manage.py runserver 0.0.0.0:8080"
     restart: always
     build: .
     ports:
-      - "8081:8081"
+      - "8080:8080"
     tty: true
 networks:
   default:
