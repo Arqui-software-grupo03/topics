@@ -15,7 +15,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Subscriber
-        fields = ['user_id', 'topic_identifier', 'topic']
+        fields = ['user_id', 'topic_identifier']
 
     def create(self, validated_data):
         subscriber = Subscriber.objects.create(user_id=validated_data['user_id'],

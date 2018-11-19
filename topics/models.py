@@ -21,13 +21,16 @@ class Post(models.Model):
         return self.post_id
 
 class Subscriber(models.Model):
-    user_id = models.IntegerField(unique=True, primary_key=True)
+    user_id = models.IntegerField(null=False)
     topic_identifier = models.IntegerField(null=False)
     topic = models.ForeignKey(Topic,
                               null=True,
                               on_delete=models.CASCADE,
                               related_name='subscribers'
                               )
+
+    class Meta:
+        unique_together = ('user_id', 'topic_identifier',)
 
     def __str__(self):
         return self.user_id
