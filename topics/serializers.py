@@ -25,7 +25,7 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
 
 class TopicSerializer(serializers.HyperlinkedModelSerializer):
     posts = PostSerializer(required=False, many = True)
-    subscribers = SubscriberSerializer(required=False, many=True)
+    subscribers = SubscriberSerializer(required=False, many=True, partial=True)
 
     class Meta:
         model = Topic
