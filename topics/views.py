@@ -28,4 +28,23 @@ class SubscriberViewSet(viewsets.ModelViewSet):
     serializer_class = SubscriberSerializer
 
     def get_queryset(self):
-        return Subscriber.objects.filter(topic=self.kwargs['topic'])
+
+        # Get URL parameter as a string, if exists
+        user_id = self.request.query_params.get('user_id', None)
+
+        # Get snippets for ids if they exist
+        if user_id is not None:
+            # Convert parameter string to list of integers
+            # user_id = [ int(x) for x in user_id.split(',') ]
+            # Get objects for all parameter ids
+            queryset = Subscriber.objects.filter(topic=self.kwargs['topic'], user_id=user_id)
+
+        else:
+            # Else no parameters, return all objects
+            queryset = Subscriber.objects.filter(topic=self.kwargs['topic'])
+
+        return queryset
+
+
+    # def get_queryset(self):
+    #     return Subscriber.objects.filter(topic=self.kwargs['topic'])
